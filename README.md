@@ -37,7 +37,7 @@ To ensure the Spotify Ad Muter program runs when Spotify is active, the followin
 This setup uses the `.desktop` file of a the installed Spotify client to start a Spotify Ad Muter instance on startup of the Spotify client itself. Note that this therefore only works when launching Spotify using the OS' graphical user interface and does not work when starting Spotify via a command line interface.
 
 - Find and change the desktop file belonging to the Spotify client installed on the Linux machine (e.g. [Arch Linux' `spotify-launcher`](https://archlinux.org/packages/extra/x86_64/spotify-launcher/))
-    - Run `find /usr/ -iregex ".*\.desktop"` to find the location of the client's `.desktop` file (e.g. `/usr/share/applications/spotify-launcher.desktop`)
+    - Run `find / -iregex ".*\.desktop"` to find the location of the client's `.desktop` file (e.g. `/usr/share/applications/spotify-launcher.desktop`)
     - Substitute the existing value for the `Exec` key (i.e. `Exec=<spotify-client>`) for the snippet below
         - Note: the `sleep` command is used to give spotify some time to start up, because otherwise the Spotify Ad Muter program might immediately close if it cannot find a running Spotify process
 ```.desktop
@@ -71,6 +71,8 @@ This setup uses Windows' built-in audit process tracking capability to provide a
 - Create a Visual Basic Script (VBS) file, which is used to indirectly call the Python script:
 ```VBS
 Set WshShell = CreateObject("WScript.Shell")
+Randomize
+WScript.Sleep Rnd * 5000
 Call WshShell.Run("python3 <absolute-dirpath>\spotify_ad_muter.py -c -p <absolute-filepath-to-cache-file>", 0)
 Set WshShell = Nothing
 ```
